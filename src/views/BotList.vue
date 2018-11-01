@@ -2,8 +2,9 @@
 <template>
   <div class="list">
     <div>
-        <div>Bot#1: {{selected[0]}}</div>
-         <div>Bot#2: {{selected[1]}}</div>
+        <h2>Bot#1: {{selectedName[0]}}</h2>
+         <h2>Bot#2: {{selectedName[1]}}</h2>
+         <button @click="battle" >Battle</button>
     </div>
     
     <!-- <Bot name='Harry' attack=40 hp=20 /> -->
@@ -11,7 +12,7 @@
 <hr />
 <div class='cards'>
     <div :key="i" v-for="(bot, i) in storeList" > 
-        <Bot :name="bot.name" :attack="bot.attack" :hp="bot.hp" />
+        <Bot :bot="bot" v-on:add-bot='addBot(bot)'/>
     </div>
     </div>
 
@@ -30,12 +31,24 @@ export default {
   data() {
     return {
       botList: this.$store.state.botList,
-      selected: []
+      selected: [],
+      selectedName: []
     }
   },
   computed: {
     storeList() {
       return this.$store.state.botList
+    }
+  },
+  methods: {
+    addBot(obj) {
+      //   console.log("obj from add", obj)
+      this.selected.push(obj)
+      this.selectedName.push(obj.name)
+    },
+    battle() {
+      let winner = Math.round(Math.random())
+      alert(this.selectedName[winner] + " wins!")
     }
   }
 }

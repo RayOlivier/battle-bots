@@ -15,7 +15,7 @@
     </div>
 
     <div class='preview' >
-        <Bot :name="bot.name" :attack="bot.attack" :hp="bot.hp" /> 
+        <Bot :preview="preview" :bot="bot" /> 
 
     </div>    
   </div>
@@ -28,6 +28,7 @@ export default {
   name: "create",
   data() {
     return {
+      preview: true,
       bot: {
         name: "",
         attack: "",
@@ -42,7 +43,7 @@ export default {
     createBot(obj) {
       console.log("clicked")
       console.log("obj", obj)
-      this.$store.commit("addBot", obj)
+      this.$store.commit("createBot", obj)
     }
   }
 }

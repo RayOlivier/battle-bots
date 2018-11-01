@@ -2,30 +2,30 @@
   <div class="bot">
     <!-- <h1>This is a bot card</h1> -->
     
-    <h2>{{name}}</h2>
+    <h2>{{bot.name}}</h2>
         <div class='bottom'>
-            <img :src="'https://robohash.org/'+ name +'?set=set3'" alt='' />
+            <img :src="'https://robohash.org/'+ bot.name +'?set=set3'" alt='' />
                 <div class='stats'> 
-                    <h3>Attack: {{attack}}</h3>
-                    <h3>HP: {{hp}}</h3>
+                    <h3>Attack: {{bot.attack}}</h3>
+                    <h3>HP: {{bot.hp}}</h3>
                 </div>
         </div>
-        <div class='buttons'>
-            <button>Select</button>
-            <button>Retire</button>
+        <div class='buttons' v-show="!preview" >
+            <button @click="$emit('add-bot')" >Select</button>
+            <button @click="deleteBot(bot)" >Retire</button>
         </div>
   </div>
 </template>
 
 <script>
-// let imgurl = "https://robohash.org/test?set=set3"
-
 export default {
   name: "Bot",
   props: {
-    name: String,
-    attack: String,
-    hp: String
+    bot: Object,
+    preview: Boolean
+    // name: String,
+    // attack: String,
+    // hp: String
   },
   data() {
     return {
@@ -33,8 +33,9 @@ export default {
     }
   },
   methods: {
-    deleteBot() {},
-    selectBot() {} //emit
+    deleteBot(obj) {
+      this.$store.commit("deleteBot", obj)
+    }
   }
 }
 </script>

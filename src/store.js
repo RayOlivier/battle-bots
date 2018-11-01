@@ -15,9 +15,17 @@ export default new Vuex.Store({
     ]
   },
   mutations: {
-    addBot(state, newBot) {
+    createBot(state, newBot) {
       console.log("state, newBot", state, newBot)
       state.botList.push(newBot)
+    },
+    deleteBot(state, oldBot) {
+      console.log("state, oldBot", state, oldBot)
+      let newState = state.botList.filter((e, i, arr) => {
+        return e.name !== oldBot.name
+      })
+
+      state.botList = newState
     }
   },
   actions: {}
